@@ -6,3 +6,13 @@ const collision = (player, block) => {
     player.position.x < block.position.x + block.width
   ); // check if left of player collides)
 };
+const collisionRight = (player, block) => {
+  return (
+    player.position.x + player.width > block.position.x 
+  ); 
+};
+const collisionLeft = (player, block) => {
+  return (
+    player.position.x < block.position.x + block.width
+  ); 
+};

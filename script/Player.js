@@ -18,7 +18,8 @@ class Player extends Sprite {
     this.platformCollisionBlocks = platformCollisionBlocksArr;
     this.animations = animations;
     this.lastDirection = "right";
-
+    this.health = 100;
+    this.score = 0;
     for (let key in this.animations) {
       const image = new Image();
       image.src = this.animations[key].imgSrc;
@@ -39,6 +40,7 @@ class Player extends Sprite {
     this.updateCameraBox();
     this.horizontalCanvasCollision();
     this.verticalCanvasCollision();
+    // this.checkCollision();
 
     c.fillStyle = "rgba(0, 255, 0, 0.5)";
     c.fillRect(
@@ -183,5 +185,13 @@ class Player extends Sprite {
     if (this.hitBox.position.y + 30 + this.velocity.y <= 0) {
       this.velocity.y = 0;
     }
+  }
+
+  takeHit() {
+    this.health -= 20;
+
+    // if (this.health <= 0) {
+    //   this.switchSprite('death')
+    // } else this.switchSprite('takeHit')
   }
 }

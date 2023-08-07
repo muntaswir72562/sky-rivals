@@ -42,7 +42,7 @@ class Enemy {
   update() {
     this.draw();
     this.updateAreaDetection();
-    this.checkCollision();
+    //this.checkCollision();
 
     c.fillStyle = "rgba(0,255, 0, 0.2)";
     c.fillRect(
@@ -71,8 +71,8 @@ class Enemy {
       },
     });
     spawnedEnemies.push(newEnemy);
-    console.log("enemy drawned!");
-    console.log("position: ", position.x, position.y);
+    // console.log("enemy drawned!");
+    // console.log("position: ", position.x, position.y);
   }
 
   checkDetectionArea() {
@@ -116,9 +116,11 @@ class Enemy {
     this.velocity.y = this.initialChaseVelocity.y;
   }
 
-  checkCollision() {
-    if (collision(this, player)) {
-      console.log("enemy collided with player first");
-    }
-  }
+  // checkCollision() {
+  //   if (collision(this, player)) {
+  //     console.log("enemy collided with player first");
+  //     player.takeHit()
+  //     console.log("health-"+player.health)
+  //   }
+  // }
 }
