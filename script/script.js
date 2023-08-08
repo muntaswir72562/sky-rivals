@@ -1,8 +1,17 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
 
-canvas.width = 1440;
-canvas.height = 815;
+// canvas.width = 1440;
+// canvas.height = 815;
+
+function resizeCanvas() {
+  const width = window.innerWidth;
+  const height = window.innerHeight;
+
+  canvas.width = width;
+  canvas.height = height;
+}
+resizeCanvas();
 
 const camera = {
   position: {
@@ -25,6 +34,12 @@ const keys = {
     pressed: false,
   },
   s: {
+    pressed: false,
+  },
+  x: {
+    pressed: false,
+  },
+  z: {
     pressed: false,
   },
 };
@@ -178,13 +193,33 @@ const animate = () => {
     const playerHitEnemy = collision(player.hitBox, enemy);
 
     if (playerHitEnemy) {
-      // Player's hitbox collided first
-      console.log("Player's hitbox collided with the enemy first!");
+      if (
+        player.image.getAttribute("src") == "../assets/attacking.png" &&
+        collisionRight(player.hitBox, enemy)
+      ) {
+        //console.log("collide right");
+        player.score += 5;
+        updateScore(player.score)
+        //console.log("score-" + player.score);
+      } else if (
+        player.image.getAttribute("src") == "../assets/attackingLeft.png" &&
+        collisionLeft(player.hitBox, enemy)
+      ) {
+       // console.log("collide left");
+        player.score += 5;
+        updateScore(player.score)
+        //console.log("score-" + player.score);
+      } else {
+        player.health -= 10;
+        updateHealth(player.health)
+        //console.log("health-" + player.health);
+      }
+
       // Implement logic for player's hitbox colliding first here, e.g., reduce player health
       spawnedEnemies.splice(i, 1); // Remove the enemy from the array
     }
   });
-
+  
   player.velocity.x = 0;
   if (keys.d.pressed) {
     player.switchAnimation("flying");
@@ -196,6 +231,14 @@ const animate = () => {
     player.velocity.x = -velocityX;
     player.lastDirection = "left";
     player.panCameraRight();
+  } else if (keys.x.pressed) {
+    player.switchAnimation("attacking");
+    player.lastDirection = "right";
+    player.panCameraRight();
+  } else if (keys.z.pressed) {
+    player.switchAnimation("attackingLeft");
+    player.lastDirection = "left";
+    player.panCameraLeft();
   } else {
     if (player.lastDirection === "left") {
       player.switchAnimation("takeoffLeft");
@@ -222,6 +265,14 @@ const animate = () => {
 };
 
 animate();
+function updateHealth(health){
+health+="%"
+document.querySelector('.health-bar-fill').style.width=health
+document.querySelector('.health-bar-text').innerHTML=health
+}
+function updateScore(score){
+  document.querySelector('#score').innerHTML=score
+}
 
 window.addEventListener("keydown", (e) => {
   const key = e.key;
@@ -238,6 +289,12 @@ window.addEventListener("keydown", (e) => {
       break;
     case "w":
       keys.w.pressed = true;
+      break;
+    case "x":
+      keys.x.pressed = true;
+      break;
+    case "z":
+      keys.z.pressed = true;
       break;
   }
 });
@@ -257,6 +314,12 @@ window.addEventListener("keyup", (e) => {
       break;
     case "w":
       keys.w.pressed = false;
+      break;
+    case "x":
+      keys.x.pressed = false;
+      break;
+    case "z":
+      keys.z.pressed = false;
       break;
   }
 });
