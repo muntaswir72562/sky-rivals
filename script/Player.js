@@ -40,7 +40,7 @@ class Player extends Sprite {
     this.updateCameraBox();
     this.horizontalCanvasCollision();
     this.verticalCanvasCollision();
-    // this.checkCollision();
+    //this.checkCollision();
 
     c.fillStyle = "rgba(0, 255, 0, 0.5)";
     c.fillRect(
