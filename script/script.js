@@ -1,6 +1,6 @@
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
-
+const resetBtn = document.querySelector("#restart");
 // canvas.width = 1440;
 // canvas.height = 815;
 
@@ -12,8 +12,7 @@ function resizeCanvas() {
   canvas.height = height;
 }
 resizeCanvas();
-
-const camera = {
+let camera = {
   position: {
     x: 0,
     y: -2176 + canvas.height,
@@ -23,7 +22,7 @@ const camera = {
 const velocityX = 5;
 const velocityY = 5;
 
-const keys = {
+let keys = {
   a: {
     pressed: false,
   },
@@ -44,7 +43,7 @@ const keys = {
   },
 };
 
-const background = new Sprite({
+let background = new Sprite({
   position: {
     x: 0,
     y: 0,
@@ -95,7 +94,7 @@ platformCollision2D.forEach((row, y) => {
   });
 });
 
-const player = new Player({
+let player = new Player({
   position: {
     x: 700,
     y: 1400,
@@ -168,13 +167,13 @@ const player = new Player({
   },
 });
 
-const spawnedEnemies = [];
+let spawnedEnemies = [];
 setInterval(() => {
   Enemy.spawnRandomEnemy(platformCollisionBlocksArr);
 }, 3000);
 
 const animate = () => {
-  window.requestAnimationFrame(animate);
+  if(!player.gameOver){window.requestAnimationFrame(animate);}
   c.fillStyle = "black";
   c.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -182,6 +181,8 @@ const animate = () => {
   c.translate(camera.position.x, camera.position.y);
 
   background.update();
+  player.checkHealth()
+  //player.checkHighScore();
   CollisionBlockArr.forEach((collisionBlock) => collisionBlock.update());
   platformCollisionBlocksArr.forEach((collisionBlock) =>
     collisionBlock.update()
@@ -210,7 +211,7 @@ const animate = () => {
         updateScore(player.score)
         //console.log("score-" + player.score);
       } else {
-        player.health -= 10;
+        player.health -= 100;
         updateHealth(player.health)
         //console.log("health-" + player.health);
       }
@@ -323,3 +324,9 @@ window.addEventListener("keyup", (e) => {
       break;
   }
 });
+
+resetBtn.addEventListener('click',()=>{
+//console.log('test')
+init(player.highScore)
+animate()
+})

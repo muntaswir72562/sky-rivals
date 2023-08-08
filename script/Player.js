@@ -20,6 +20,8 @@ class Player extends Sprite {
     this.lastDirection = "right";
     this.health = 100;
     this.score = 0;
+    this.highScore = 0;
+    this.gameOver = false;
     for (let key in this.animations) {
       const image = new Image();
       image.src = this.animations[key].imgSrc;
@@ -186,12 +188,18 @@ class Player extends Sprite {
       this.velocity.y = 0;
     }
   }
+  checkHighScore(score, hscore) {
+   
+    if (score > hscore) {
+      this.highScore = this.score;
+    }
+  }
 
-  takeHit() {
-    this.health -= 20;
-
-    // if (this.health <= 0) {
-    //   this.switchSprite('death')
-    // } else this.switchSprite('takeHit')
+  checkHealth() {
+    if (this.health <= 0) {
+      this.gameOver = true;
+      this.checkHighScore(this.score, this.highScore);
+      scoreBoard(this.score, this.highScore);
+    }
   }
 }
