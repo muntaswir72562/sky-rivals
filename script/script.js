@@ -172,6 +172,11 @@ setInterval(() => {
   Enemy.spawnRandomEnemy(platformCollisionBlocksArr);
 }, 3000);
 
+const spawnWorms = [];
+setInterval(() => {
+  Worm.spawnWorms(platformCollisionBlocksArr);
+}, 1000);
+
 const animate = () => {
   if(!player.gameOver){window.requestAnimationFrame(animate);}
   c.fillStyle = "black";
@@ -189,6 +194,11 @@ const animate = () => {
   );
   player.update();
 
+  //Spawning a new worm on the screen.
+  spawnWorms.forEach((worm, i) => {
+    worm.update();
+  });
+
   spawnedEnemies.forEach((enemy, i) => {
     enemy.update();
     const playerHitEnemy = collision(player.hitBox, enemy);
@@ -200,19 +210,21 @@ const animate = () => {
       ) {
         //console.log("collide right");
         player.score += 5;
-        updateScore(player.score)
+        updateScore(player.score);
         //console.log("score-" + player.score);
       } else if (
         player.image.getAttribute("src") == "../assets/attackingLeft.png" &&
         collisionLeft(player.hitBox, enemy)
       ) {
-       // console.log("collide left");
+        // console.log("collide left");
         player.score += 5;
-        updateScore(player.score)
+        updateScore(player.score);
         //console.log("score-" + player.score);
       } else {
-        player.health -= 100;
-        updateHealth(player.health)
+
+        player.health -= 10;
+        updateHealth(player.health);
+
         //console.log("health-" + player.health);
       }
 
@@ -220,7 +232,7 @@ const animate = () => {
       spawnedEnemies.splice(i, 1); // Remove the enemy from the array
     }
   });
-  
+
   player.velocity.x = 0;
   if (keys.d.pressed) {
     player.switchAnimation("flying");
@@ -266,13 +278,13 @@ const animate = () => {
 };
 
 animate();
-function updateHealth(health){
-health+="%"
-document.querySelector('.health-bar-fill').style.width=health
-document.querySelector('.health-bar-text').innerHTML=health
+function updateHealth(health) {
+  health += "%";
+  document.querySelector(".health-bar-fill").style.width = health;
+  document.querySelector(".health-bar-text").innerHTML = health;
 }
-function updateScore(score){
-  document.querySelector('#score').innerHTML=score
+function updateScore(score) {
+  document.querySelector("#score").innerHTML = score;
 }
 
 window.addEventListener("keydown", (e) => {
