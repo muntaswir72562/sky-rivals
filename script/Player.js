@@ -18,7 +18,10 @@ class Player extends Sprite {
     this.platformCollisionBlocks = platformCollisionBlocksArr;
     this.animations = animations;
     this.lastDirection = "right";
-
+    this.health = 100;
+    this.score = 0;
+    this.highScore = 0;
+    this.gameOver = false;
     for (let key in this.animations) {
       const image = new Image();
       image.src = this.animations[key].imgSrc;
@@ -39,17 +42,7 @@ class Player extends Sprite {
     this.updateCameraBox();
     this.horizontalCanvasCollision();
     this.verticalCanvasCollision();
-
-    c.fillStyle = "rgba(0, 255, 0, 0.5)";
-    c.fillRect(
-      this.cameraBox.position.x,
-      this.cameraBox.position.y,
-      this.cameraBox.width,
-      this.cameraBox.height
-    );
-
-    c.fillStyle = "rgba(0, 0, 255, 0.2)";
-    c.fillRect(this.position.x, this.position.y, this.width, this.height);
+    //this.checkCollision();
 
     c.fillStyle = "rgba(255, 0, 0, 0.5)";
     c.fillRect(
@@ -74,10 +67,10 @@ class Player extends Sprite {
     this.hitBox = {
       position: {
         x: this.position.x + 3,
-        y: this.position.y + 30,
+        y: this.position.y + 10,
       },
       width: 175,
-      height: 150,
+      height: 140,
     };
   }
 
@@ -182,6 +175,19 @@ class Player extends Sprite {
   verticalCanvasCollision() {
     if (this.hitBox.position.y + 30 + this.velocity.y <= 0) {
       this.velocity.y = 0;
+    }
+  }
+  checkHighScore(score, hscore) {
+    if (score > hscore) {
+      this.highScore = this.score;
+    }
+  }
+
+  checkHealth() {
+    if (this.health <= 0) {
+      this.gameOver = true;
+      this.checkHighScore(this.score, this.highScore);
+      scoreBoard(this.score, this.highScore);
     }
   }
 }

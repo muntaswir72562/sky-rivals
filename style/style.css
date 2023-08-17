@@ -1,7 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Kanit:wght@700&family=Montserrat&display=swap");
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   overflow-y: hidden;
   overflow-x: hidden;
+  font-family: "Montserrat", sans-serif;
+}
+body {
+  position: relative;
+}
+.interface-wrapper {
+  position: absolute;
+  margin: 2rem;
+}
+.health-wrapper,
+.score-wrapper {
+  display: flex;
+}
+.health-bar {
+  width: 300px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: white;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.health-bar-fill {
+  height: 100%;
+  background-image: linear-gradient(to right, #26cad9, #2671d9);
+  border-radius: inherit;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: width 0.5s ease-in-out;
+}
+
+.health-bar-text {
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* text-shadow: 0 0 5px black;  */
+}
+
+.health-bar-icon img {
+  width: 40px;
+  height: auto;
+  margin-right: 0.5rem;
+}
+.score {
+  margin: 0.5rem;
+}
+.score h1 {
+  margin-left: 0.75rem;
+  font-size: 35px;
+  font-family: "Kanit", sans-serif;
+  color: #3226b5;
+}
+.score-icon img {
+  width: 55px;
+  height: auto;
+  margin-right: 1rem;
+}
+
+.worm-score {
+  display: flex;
+  align-items: center;
+}
+
+.worm-score > span {
+  margin-left: 0.5rem;
+  font-size: 35px;
+  font-weight: bolder;
+  padding: 0 1rem;
+  font-family: "Kanit", sans-serif;
+  color: #3226b5;
+}
+.worm-score img {
+  width: 4rem;
+}
+
+.game-over-wrapper {
+  display: none;
+  background: linear-gradient(#bce784, #348aa7);
+  position: absolute;
+
+  top: 25%;
+  left: 30%;
+  width: 40vw;
+  height: 40vh;
+  border-radius: 10px;
+}
+.die,
+.score,
+.t-score {
+  display: flex;
+}
+.die img {
+  width: auto;
+  height: 50px;
+  margin-top: 0.5rem;
+}
+.die h1 {
+  color: white;
+  font-weight: 900;
+  margin: 1rem;
+}
+.score img {
+  width: 60px;
+  height: auto;
+}
+.t-score img {
+  width: 60px;
+  height: auto;
+}
+.score h2,
+.t-score h2 {
+  color: white;
+  font-weight: 900;
+  margin: 1rem;
+}
+.btn {
+  margin: 1rem;
+}
+.btn button {
+  background-color: #525174;
+  color: white;
+  margin: 1rem;
+  width: 10vw;
+  height: 5vh;
+  border-radius: 10px;
+  border-style: none;
+  box-shadow: none;
+  outline: none;
+}
+.btn button:hover {
+  cursor: wait;
 }

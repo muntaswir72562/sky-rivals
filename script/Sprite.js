@@ -15,7 +15,6 @@ class Sprite {
     this.frameBuffer = frameBuffer;
     this.elapsedFrames = 0;
   }
-
   draw() {
     const cropBox = {
       position: {
@@ -54,4 +53,5 @@ class Sprite {
       }
     }
   }
+ 
 }
