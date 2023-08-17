@@ -207,7 +207,7 @@ setInterval(() => {
   );
 }, 3000);
 
-const spawnWorms = [];
+let spawnWorms = [];
 setInterval(() => {
   Worm.spawnWorms(
     platformCollisionBlocksArr,
