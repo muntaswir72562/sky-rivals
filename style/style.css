@@ -140,6 +140,4 @@ body {
   box-shadow: none;
   outline: none;
 }
-.btn button:hover {
-  cursor: wait;
-}
+
