@@ -19,10 +19,10 @@ const init=(highScore)=>{
           s: {
             pressed: false,
           },
-          x: {
+          j: {
             pressed: false,
           },
-          z: {
+          l: {
             pressed: false,
           },
         };
